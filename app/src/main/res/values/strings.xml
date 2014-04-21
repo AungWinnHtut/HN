@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">HN</string>
+  <string name="hello_world">Hello world!</string>
+
+  <string name="title">Title</string>
+  <string name="num_comments">20 Comments</string>
+  <string name="points">30</string>
+
+</resources>
