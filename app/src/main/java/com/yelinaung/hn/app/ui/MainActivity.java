@@ -66,6 +66,9 @@ public class MainActivity extends Activity {
                 stories.clear();
                 for (int i = 0; i < storiesJsonArray.size(); i++) {
                   Story s = gson.fromJson((storiesJsonArray.get(i)).getAsJsonObject(), Story.class);
+                  //Log.i("stories", "points ➞" + s.points);
+                  //Log.i("stories", "link ➞" + s.link);
+                  //Log.i("stories", "num of comments ➞" + s.num_comments);
                   stories.add(s);
                   storyAdapter = new StoryAdapter(MainActivity.this, stories);
                   storyAdapter.notifyDataSetChanged();

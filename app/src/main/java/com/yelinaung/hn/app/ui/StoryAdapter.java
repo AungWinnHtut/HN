@@ -38,9 +38,9 @@ public class StoryAdapter extends ArrayAdapter<Story> {
       convertView.setTag(holder);
     }
 
-    holder.points.setText("Hello");
+    holder.points.setText("" + stories.get(position).points);
     holder.mTitle.setText(stories.get(position).title);
-    holder.num_comments.setText("Comment Test");
+    holder.num_comments.setText(stories.get(position).num_comments + " Comments");
 
     return convertView;
   }
