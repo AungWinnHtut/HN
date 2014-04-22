@@ -23,6 +23,6 @@ dependencies {
   compile 'com.android.support:support-v4:+'
   compile 'com.google.code.gson:gson:2.2.+'
   compile 'com.koushikdutta.ion:ion:1.2.4'
-  compile 'com.jakewharton:butterknife:4.0.1'
+  compile 'com.jakewharton:butterknife:5.0.0'
   compile fileTree(dir: 'libs', include: ['*.jar'])
 }
