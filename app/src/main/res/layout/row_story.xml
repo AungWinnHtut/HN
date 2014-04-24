@@ -11,9 +11,10 @@
       android:textColor="@android:color/white"
       android:fontFamily="sans-serif-light"
       android:textSize="25sp"
-      android:background="@color/accent_color"
-      android:padding="15dp"
+      android:background="@color/light_accent_color"
+      android:padding="10dp"
       android:gravity="center"
+      android:layout_gravity="center"
       android:layout_width="80dp"
       android:layout_height="wrap_content"/>
 

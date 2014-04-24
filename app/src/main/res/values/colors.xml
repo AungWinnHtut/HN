@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="accent_color">#fc6621</color>
+  <color name="light_accent_color">#fffc801c</color>
 </resources>

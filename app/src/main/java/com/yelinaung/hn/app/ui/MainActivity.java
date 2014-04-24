@@ -1,5 +1,6 @@
 package com.yelinaung.hn.app.ui;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +17,7 @@ import com.google.gson.stream.JsonReader;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.yelinaung.hn.app.R;
+import com.yelinaung.hn.app.db.StoryDao;
 import com.yelinaung.hn.app.model.Story;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -28,14 +30,21 @@ public class MainActivity extends Activity {
   @InjectView(R.id.list_view) ListView mNewsListView;
   @InjectView(R.id.swipe_view) SwipeRefreshLayout mSwipeView;
 
-  ArrayList<Story> stories = new ArrayList<Story>();
-  StoryAdapter storyAdapter;
+  private ArrayList<Story> stories = new ArrayList<Story>();
+  private StoryAdapter storyAdapter;
+  private StoryDao storyDao;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.inject(this);
+
+    ActionBar actionBar = getActionBar();
+    assert actionBar != null;
+    actionBar.setTitle("Hacker News");
+
+    storyDao = new StoryDao(MainActivity.this);
 
     mSwipeView.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
         android.R.color.holo_red_light, android.R.color.holo_orange_light);
@@ -63,17 +72,17 @@ public class MainActivity extends Activity {
                 JsonObject storiesObject = (JsonObject) p.parse(reader);
                 JsonArray storiesJsonArray = storiesObject.getAsJsonArray("stories");
                 Gson gson = new GsonBuilder().create();
+
                 stories.clear();
+                storyDao.deleteAllStories();
+
                 for (int i = 0; i < storiesJsonArray.size(); i++) {
                   Story s = gson.fromJson((storiesJsonArray.get(i)).getAsJsonObject(), Story.class);
-                  //Log.i("stories", "points ➞" + s.points);
-                  //Log.i("stories", "link ➞" + s.link);
-                  //Log.i("stories", "num of comments ➞" + s.num_comments);
                   stories.add(s);
-                  storyAdapter = new StoryAdapter(MainActivity.this, stories);
-                  storyAdapter.notifyDataSetChanged();
-                  mNewsListView.setAdapter(storyAdapter);
+                  storyDao.create(s);
                 }
+
+                storyAdapter.notifyDataSetChanged();
               } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
               }
@@ -84,6 +93,13 @@ public class MainActivity extends Activity {
             }
           }
         });
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    stories = (ArrayList<Story>) storyDao.getAll();
+    storyAdapter = new StoryAdapter(MainActivity.this, stories);
+    mNewsListView.setAdapter(storyAdapter);
   }
 
   @Override protected void onDestroy() {
