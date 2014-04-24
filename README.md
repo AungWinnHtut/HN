@@ -4,7 +4,7 @@ HN
 (Very) Simple (and experimental) Hacker News Reader (No, really!)
 
 
-![Alt](https://raw.githubusercontent.com/yelinaung/Karrency/master/device-2014-04-24-140518_framed.png)
+![Alt](https://raw.githubusercontent.com/yelinaung/HN/master/device-2014-04-24-140518_framed.png)
 
 
 
