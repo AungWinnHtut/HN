@@ -134,4 +134,8 @@ public class MainActivity extends Activity {
     super.onDestroy();
     ButterKnife.reset(this);
   }
+
+  @Override protected void onStart() {
+    super.onStart();
+  }
 }
